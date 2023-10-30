@@ -26,7 +26,7 @@ app_file: knowledge_gpt/main.py
 | **File size check** | [![Filesize](https://github.com/andreped/referencebot/workflows/Check%20file%20size/badge.svg)](https://github.com/andreped/referencebot/actions) |
 
 
-# [Installation](https://github.com/andreped/referencebot#installation)
+## [Installation](https://github.com/andreped/referencebot#installation)
 
 Follow the instructions below to run the Streamlit server locally.
 
@@ -70,7 +70,7 @@ ENGINE_EMBEDDING = "<insert deployment embedding name>"
 streamlit run knowledge_gpt/main.py
 ```
 
-# [Build with Docker](https://github.com/andreped/referencebot#build-with-docker)
+## [Build with Docker](https://github.com/andreped/referencebot#build-with-docker)
 
 Run the following commands to build and run the Docker image.
 
