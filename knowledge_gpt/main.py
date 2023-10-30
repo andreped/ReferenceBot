@@ -5,14 +5,9 @@ import streamlit as st
 st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
 
 # add all secrets into environmental variables
-try:
+if os.path.exists(os.path.dirname(os.path.abspath(__file__)) + "/../.streamlit/secrets.toml"):  # to avoid redundant print by calling st.secrets
     for key, value in st.secrets.items():
         os.environ[key] = value
-except FileNotFoundError as e:
-    print(e)
-    print("./streamlit/secrets.toml not found. Assuming secrets are"
-          " already available as environmental variables...")
-
 
 from knowledge_gpt.components.sidebar import sidebar
 
