@@ -14,7 +14,7 @@ def sidebar():
         )
         st.markdown(
             "This tool is a work in progress. "
-            "You can contribute to the project on [GitHub](https://github.com/mmz-001/knowledge_gpt) "  # noqa: E501
+            "You can contribute to the project on [GitHub](https://github.com/andreped/ReferenceBot) "  # noqa: E501
             "with your feedback and suggestions💡"
         )
         st.markdown("The tool was based on KnowledgeGPT made by [mmz_001](https://twitter.com/mm_sasmitha).")

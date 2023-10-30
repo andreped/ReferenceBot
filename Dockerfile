@@ -33,6 +33,9 @@ RUN python3 -m pip install -r requirements.txt
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
 COPY --chown=user . $HOME/app
 
+# create data/ directory to store PDFs
+RUN mkdir $HOME/app/data/ && chmod -R 777 $HOME/app/data/
+
 ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8501
