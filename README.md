@@ -1,14 +1,30 @@
-# ReferenceBot
+---
+title: "ReferenceBot: KnowledgeGPT + Azure OpenAI = <3"
+colorFrom: indigo
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.27.2
+app_port: 8501
+emoji: 💬
+pinned: false
+license: mit
+app_file: knowledge_gpt/main.py
+---
 
-## Installation
+# [ReferenceBot](https://github.com/andreped/referencebot#referencebot)
+
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://referencebot.streamlit.app)
+
+# [Installation](https://github.com/andreped/referencebot#installation)
 
 Follow the instructions below to run the Streamlit server locally.
 
-### Pre-requisites
+### [Prerequisites](https://github.com/andreped/referencebot#prerequisites)
 
 Make sure you have Python `≥3.10` installed.
 
-### Steps
+### [Steps](https://github.com/andreped/referencebot#steps)
 
 These instructions were tested on macOS 13.6 Ventura with ARM CPU and Python `3.10.11`.
 
@@ -44,7 +60,7 @@ ENGINE_EMBEDDING = "<insert deployment embedding name>"
 streamlit run knowledge_gpt/main.py
 ```
 
-## Build with Docker
+# [Build with Docker](https://github.com/andreped/referencebot#build-with-docker)
 
 Run the following commands to build and run the Docker image.
 
@@ -56,10 +72,10 @@ docker run -p 8501:8501 ReferenceBot
 
 Open http://localhost:8501 in your browser to access the app.
 
-## Acknowledgements
+## [Acknowledgements](https://github.com/andreped/referencebot#acknowledgements)
 
 We have built on-top of [KnowledgeGPT](https://github.com/mmz-001/knowledge_gpt) to enable the tool be be used with Azure OpenAI Services. Thus, all credit should go towards the original developers.
 
-## License
+## [License](https://github.com/andreped/referencebot#license)
 
 Distributed under the MIT License. See [LICENSE](https://github.com/andreped/ReferenceBot/blob/main/LICENSE) for more information.
