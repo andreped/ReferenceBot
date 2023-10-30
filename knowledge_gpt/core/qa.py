@@ -1,10 +1,12 @@
 from typing import List
+
 from langchain.chains.qa_with_sources import load_qa_with_sources_chain
-from knowledge_gpt.core.prompts import STUFF_PROMPT
-from langchain.docstore.document import Document
-from knowledge_gpt.core.embedding import FolderIndex
-from pydantic import BaseModel
 from langchain.chat_models.base import BaseChatModel
+from langchain.docstore.document import Document
+from pydantic import BaseModel
+
+from knowledge_gpt.core.embedding import FolderIndex
+from knowledge_gpt.core.prompts import STUFF_PROMPT
 
 
 class AnswerWithSources(BaseModel):
@@ -39,9 +41,7 @@ def query_folder(
     )
 
     relevant_docs = folder_index.index.similarity_search(query, k=5)
-    result = chain(
-        {"input_documents": relevant_docs, "question": query}, return_only_outputs=True
-    )
+    result = chain({"input_documents": relevant_docs, "question": query}, return_only_outputs=True)
     sources = relevant_docs
 
     if not return_all:

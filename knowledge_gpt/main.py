@@ -1,31 +1,27 @@
 import os
-os.environ["OPENAI_API_TYPE"] = "azure"  # configure API to Azure OpenAI
 
 import streamlit as st
+from langchain.chat_models import AzureChatOpenAI
+
+from knowledge_gpt.components.sidebar import sidebar
+from knowledge_gpt.core.caching import bootstrap_caching
+from knowledge_gpt.core.chunking import chunk_file
+from knowledge_gpt.core.embedding import embed_files
+from knowledge_gpt.core.parsing import read_file
+from knowledge_gpt.core.qa import query_folder
+from knowledge_gpt.ui import display_file_read_error
+from knowledge_gpt.ui import is_file_valid
+from knowledge_gpt.ui import is_query_valid
+from knowledge_gpt.ui import wrap_doc_in_html
+
 st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
 
 # add all secrets into environmental variables
-if os.path.exists(os.path.dirname(os.path.abspath(__file__)) + "/../.streamlit/secrets.toml"):  # to avoid redundant print by calling st.secrets
+if os.path.exists(
+    os.path.dirname(os.path.abspath(__file__)) + "/../.streamlit/secrets.toml"
+):  # to avoid redundant print by calling st.secrets
     for key, value in st.secrets.items():
         os.environ[key] = value
-
-from knowledge_gpt.components.sidebar import sidebar
-
-from knowledge_gpt.ui import (
-    wrap_doc_in_html,
-    is_query_valid,
-    is_file_valid,
-    display_file_read_error,
-)
-
-from knowledge_gpt.core.caching import bootstrap_caching
-
-from knowledge_gpt.core.parsing import read_file
-from knowledge_gpt.core.chunking import chunk_file
-from knowledge_gpt.core.embedding import embed_files
-from knowledge_gpt.core.qa import query_folder
-
-from langchain.chat_models import AzureChatOpenAI
 
 
 def main():
@@ -78,7 +74,7 @@ def main():
             openai_api_key=os.environ["OPENAI_API_KEY"],
             openai_api_base=os.environ["OPENAI_API_BASE"],
             openai_api_type="azure",
-            chunk_size = 1,
+            chunk_size=1,
         )
 
     with st.form(key="qa_form"):
@@ -106,7 +102,7 @@ def main():
                 openai_api_type="azure",
                 temperature=0,
             )
-        
+
         with st.spinner("Querying folder to get result..."):
             result = query_folder(
                 folder_index=folder_index,
