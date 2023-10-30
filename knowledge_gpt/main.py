@@ -7,12 +7,11 @@ st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
 # add all secrets into environmental variables
 try:
     for key, value in st.secrets.items():
-        # os.environ[key] = value
-        st.session_state[key] = value
+        os.environ[key] = value
 except FileNotFoundError as e:
     print(e)
-    print("./streamlit/secrets.toml not found. Assuming secrets are already available"
-          "as environmental variables...")
+    print("./streamlit/secrets.toml not found. Assuming secrets are"
+          " already available as environmental variables...")
 
 
 from knowledge_gpt.components.sidebar import sidebar
@@ -49,7 +48,7 @@ def main():
 
     sidebar()
 
-    openai_api_key = st.session_state.get("OPENAI_API_KEY")
+    openai_api_key = os.environ["OPENAI_API_KEY"]
 
     if not openai_api_key:
         st.warning(
@@ -87,10 +86,10 @@ def main():
             files=[chunked_file],
             embedding=EMBEDDING if model != "debug" else "debug",
             vector_store=VECTOR_STORE if model != "debug" else "debug",
-            deployment=st.secrets["ENGINE_EMBEDDING"],
-            model=st.secrets["ENGINE"],
-            openai_api_key=st.secrets["OPENAI_API_KEY"],
-            openai_api_base=st.secrets["OPENAI_API_BASE"],
+            deployment=os.environ["ENGINE_EMBEDDING"],
+            model=os.environ["ENGINE"],
+            openai_api_key=os.environ["OPENAI_API_KEY"],
+            openai_api_base=os.environ["OPENAI_API_BASE"],
             openai_api_type="azure",
             chunk_size = 1,
         )
@@ -113,10 +112,10 @@ def main():
 
         with st.spinner("Setting up AzureChatOpenAI bot..."):
             llm = AzureChatOpenAI(
-                openai_api_base=st.secrets["OPENAI_API_BASE"],
-                openai_api_version=st.secrets["OPENAI_API_VERSION"],
-                deployment_name=st.secrets["ENGINE"],
-                openai_api_key=st.secrets["OPENAI_API_KEY"],
+                openai_api_base=os.environ["OPENAI_API_BASE"],
+                openai_api_version=os.environ["OPENAI_API_VERSION"],
+                deployment_name=os.environ["ENGINE"],
+                openai_api_key=os.environ["OPENAI_API_KEY"],
                 openai_api_type="azure",
                 temperature=0,
             )
