@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "knowledge-gpt"
+version = "0.0.5"
+description = "Accurate answers and instant citations for your documents"
+authors = ["mmz-001 <mmzappdev@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "knowledge_gpt"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.24.0"
+langchain = "^0.0.220"
+cohere = "^3.2.1"
+faiss-cpu = "^1.7.3"
+openai = "^0.27.8"
+docx2txt = "^0.8"
+pillow = "^9.4.0"
+tenacity = "^8.2.0"
+tiktoken = "^0.4.0"
+pycryptodome = "^3.18.0"
+pymupdf = "^1.22.5"
+transformers = "^4.33.1"
+python-dotenv = "^0.21.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+ipykernel = "^6.23.3"
+ipywidgets = "^8.0.6"
+
+
+[tool.poetry.group.lint.dependencies]
+isort = "^5.12.0"
+black = {version = "^23.1a1", allow-prereleases = true}
+flake8 = "^6.0.0"
+
+
+[tool.poetry.group.extras.dependencies]
+ipykernel = "^6.25.1"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
