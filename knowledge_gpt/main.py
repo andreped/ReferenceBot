@@ -10,7 +10,8 @@ try:
         st.session_state[key] = value
 except FileNotFoundError as e:
     print(e)
-    print("./streamlit/secrets.toml not found. Assuming secrets are already available" "as environmental variables...")
+    print("./streamlit/secrets.toml not found. Assuming secrets are already available"
+          "as environmental variables...")
 
 
 from knowledge_gpt.components.sidebar import sidebar
@@ -28,9 +29,12 @@ from knowledge_gpt.core.parsing import read_file
 from knowledge_gpt.core.chunking import chunk_file
 from knowledge_gpt.core.embedding import embed_files
 from knowledge_gpt.core.qa import query_folder
-from knowledge_gpt.core.utils import get_llm
 
 from langchain.chat_models import AzureChatOpenAI
+
+
+st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
+st.header("📖ReferenceBot")
 
 
 def main():
@@ -40,9 +44,6 @@ def main():
 
     # Uncomment to enable debug mode
     # MODEL_LIST.insert(0, "debug")
-
-    st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
-    st.header("📖ReferenceBot")
 
     # Enable caching for expensive functions
     bootstrap_caching()
