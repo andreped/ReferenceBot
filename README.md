@@ -14,7 +14,17 @@ app_file: knowledge_gpt/main.py
 # [ReferenceBot](https://github.com/andreped/referencebot#referencebot)
 
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+<a target="_blank" href="https://huggingface.co/spaces/andreped/ReferenceBot"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://referencebot.streamlit.app)
+[![CI/CD](https://github.com/andreped/ReferenceBot/actions/workflows/deploy.yml/badge.svg)](https://github.com/andreped/ReferenceBot/actions/workflows/deploy.yml)
+
+## [Continuous integration](https://github.com/andreped/chatbot-streamlit-demo#continuous-integration)
+
+| Build Type | Status |
+| - | - |
+| **HF Deploy** | [![Deploy](https://github.com/andreped/referencebot/workflows/Deploy/badge.svg)](https://github.com/andreped/referencebot/actions) |
+| **File size check** | [![Filesize](https://github.com/andreped/referencebot/workflows/Check%20file%20size/badge.svg)](https://github.com/andreped/referencebot/actions) |
+
 
 # [Installation](https://github.com/andreped/referencebot#installation)
 
