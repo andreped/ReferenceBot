@@ -1,6 +1,17 @@
 import os
+os.environ["OPENAI_API_TYPE"] = "azure"  # configure API to Azure OpenAI
 
 import streamlit as st
+
+# add all secrets into environmental variables
+try:
+    for key, value in st.secrets.items():
+        # os.environ[key] = value
+        st.session_state[key] = value
+except FileNotFoundError as e:
+    print(e)
+    print("./streamlit/secrets.toml not found. Assuming secrets are already available" "as environmental variables...")
+
 
 from knowledge_gpt.components.sidebar import sidebar
 
@@ -8,7 +19,6 @@ from knowledge_gpt.ui import (
     wrap_doc_in_html,
     is_query_valid,
     is_file_valid,
-    is_open_ai_key_valid,
     display_file_read_error,
 )
 
@@ -20,14 +30,7 @@ from knowledge_gpt.core.embedding import embed_files
 from knowledge_gpt.core.qa import query_folder
 from knowledge_gpt.core.utils import get_llm
 
-
-# add all secrets into environmental variables
-try:
-    for key, value in st.secrets.items():
-        os.environ[key] = value
-except FileNotFoundError as e:
-    print(e)
-    print("./streamlit/secrets.toml not found. Assuming secrets are already available" "as environmental variables...")
+from langchain.chat_models import AzureChatOpenAI
 
 
 def main():
@@ -38,8 +41,8 @@ def main():
     # Uncomment to enable debug mode
     # MODEL_LIST.insert(0, "debug")
 
-    st.set_page_config(page_title="KnowledgeGPT", page_icon="📖", layout="wide")
-    st.header("📖KnowledgeGPT")
+    st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
+    st.header("📖ReferenceBot")
 
     # Enable caching for expensive functions
     bootstrap_caching()
@@ -79,15 +82,17 @@ def main():
     if not is_file_valid(file):
         st.stop()
 
-    if not is_open_ai_key_valid(openai_api_key, model):
-        st.stop()
-
     with st.spinner("Indexing document... This may take a while⏳"):
         folder_index = embed_files(
             files=[chunked_file],
             embedding=EMBEDDING if model != "debug" else "debug",
             vector_store=VECTOR_STORE if model != "debug" else "debug",
-            openai_api_key=openai_api_key,
+            deployment=st.secrets["ENGINE_EMBEDDING"],
+            model=st.secrets["ENGINE"],
+            openai_api_key=st.secrets["OPENAI_API_KEY"],
+            openai_api_base=st.secrets["OPENAI_API_BASE"],
+            openai_api_type="azure",
+            chunk_size = 1,
         )
 
     with st.form(key="qa_form"):
@@ -106,13 +111,23 @@ def main():
         # Output Columns
         answer_col, sources_col = st.columns(2)
 
-        llm = get_llm(model=model, openai_api_key=openai_api_key, temperature=0)
-        result = query_folder(
-            folder_index=folder_index,
-            query=query,
-            return_all=return_all_chunks,
-            llm=llm,
-        )
+        with st.spinner("Setting up AzureChatOpenAI bot..."):
+            llm = AzureChatOpenAI(
+                openai_api_base=st.secrets["OPENAI_API_BASE"],
+                openai_api_version=st.secrets["OPENAI_API_VERSION"],
+                deployment_name=st.secrets["ENGINE"],
+                openai_api_key=st.secrets["OPENAI_API_KEY"],
+                openai_api_type="azure",
+                temperature=0,
+            )
+        
+        with st.spinner("Querying folder to get result..."):
+            result = query_folder(
+                folder_index=folder_index,
+                query=query,
+                return_all=return_all_chunks,
+                llm=llm,
+            )
 
         with answer_col:
             st.markdown("#### Answer")

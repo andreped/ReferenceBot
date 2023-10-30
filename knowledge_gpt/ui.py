@@ -2,7 +2,7 @@ from typing import List
 import streamlit as st
 from langchain.docstore.document import Document
 from knowledge_gpt.core.parsing import File
-import openai
+#import openai
 from streamlit.logger import get_logger
 from typing import NoReturn
 
@@ -51,11 +51,12 @@ def is_open_ai_key_valid(openai_api_key, model: str) -> bool:
         st.error("Please enter your OpenAI API key in the sidebar!")
         return False
     try:
-        openai.ChatCompletion.create(
-            model=model,
-            messages=[{"role": "user", "content": "test"}],
-            api_key=openai_api_key,
-        )
+        pass
+        #openai.ChatCompletion.create(
+        #    engine="chatbot-streamlit",#model,
+        #    messages=[{"role": "user", "content": "test"}],
+        #    #api_key=openai_api_key,
+        #)
     except Exception as e:
         st.error(f"{e.__class__.__name__}: {e}")
         logger.error(f"{e.__class__.__name__}: {e}")
