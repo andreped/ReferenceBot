@@ -17,13 +17,12 @@ app_file: knowledge_gpt/main.py
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://referencebot.streamlit.app)
 [![CI/CD](https://github.com/andreped/ReferenceBot/actions/workflows/deploy.yml/badge.svg)](https://github.com/andreped/ReferenceBot/actions/workflows/deploy.yml)
 
-## [Continuous integration](https://github.com/andreped/chatbot-streamlit-demo#continuous-integration)
+## [Continuous integration](https://github.com/andreped/referencebot#continuous-integration)
 
 | Build Type | Status |
 | - | - |
 | **HF Deploy** | [![Deploy](https://github.com/andreped/referencebot/workflows/Deploy/badge.svg)](https://github.com/andreped/referencebot/actions) |
 | **File size check** | [![Filesize](https://github.com/andreped/referencebot/workflows/Check%20file%20size/badge.svg)](https://github.com/andreped/referencebot/actions) |
-
 
 ## [Installation](https://github.com/andreped/referencebot#installation)
 
@@ -79,6 +78,12 @@ docker run -p 8501:8501 reference-bot
 ```
 
 Open http://localhost:8501 in your browser to access the app.
+
+## [Demo](https://github.com/andreped/referencebot#demo) <a target="_blank" href="https://huggingface.co/spaces/andreped/ReferenceBot"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Spaces-yellow.svg"></a>
+
+A live demonstration is hosted at Hugging Face! Click the 🤗 badge above.
+
+![Screenshot 2023-10-30 at 15 35 51](https://github.com/andreped/ReferenceBot/assets/29090665/c64d8f54-d3da-41b8-8f57-0ed1eb3a1c30)
 
 ## [Acknowledgements](https://github.com/andreped/referencebot#acknowledgements)
 
