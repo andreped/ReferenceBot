@@ -2,8 +2,7 @@
 title: "ReferenceBot: KnowledgeGPT + Azure OpenAI = <3"
 colorFrom: indigo
 colorTo: indigo
-sdk: streamlit
-sdk_version: 1.27.2
+sdk: docker
 app_port: 8501
 emoji: 💬
 pinned: false
@@ -75,9 +74,8 @@ streamlit run knowledge_gpt/main.py
 Run the following commands to build and run the Docker image.
 
 ```bash
-cd knowledge_gpt
-docker build -t ReferenceBot .
-docker run -p 8501:8501 ReferenceBot
+docker build -t reference-bot .
+docker run -p 8501:8501 reference-bot
 ```
 
 Open http://localhost:8501 in your browser to access the app.
