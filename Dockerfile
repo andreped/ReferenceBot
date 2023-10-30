@@ -7,25 +7,31 @@ ENV PYTHONFAULTHANDLER=1 \
     POETRY_VERSION=1.5.1 \
     PIP_NO_CACHE_DIR=1
 
-WORKDIR /app
-
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     software-properties-common \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install "poetry==$POETRY_VERSION"
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install -r requirements.txt
+# Set up a new user named "user" with user ID 1000
+RUN useradd -m -u 1000 user
 
+# Switch to the "user" user
+USER user
 
-FROM python:3.10-slim
+# Set home to the user's home directory
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
 
-WORKDIR /app
+# Set the working directory to the user's home directory
+WORKDIR $HOME/app
 
-COPY --from=builder /app /app
+COPY . $HOME/app
 
-COPY /knowledge_gpt ./knowledge_gpt 
+RUN python3 -m pip install -r requirements.txt
+
+# Copy the current directory contents into the container at $HOME/app setting the owner to the user
+COPY --chown=user . $HOME/app
 
 ENV PATH="/app/.venv/bin:$PATH"
 
