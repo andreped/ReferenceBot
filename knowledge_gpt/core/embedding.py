@@ -1,11 +1,15 @@
-from langchain.vectorstores import VectorStore
-from knowledge_gpt.core.parsing import File
-from langchain.vectorstores.faiss import FAISS
+from typing import List
+from typing import Type
+
+from langchain.docstore.document import Document
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.embeddings.base import Embeddings
-from typing import List, Type
-from langchain.docstore.document import Document
-from knowledge_gpt.core.debug import FakeVectorStore, FakeEmbeddings
+from langchain.vectorstores import VectorStore
+from langchain.vectorstores.faiss import FAISS
+
+from knowledge_gpt.core.debug import FakeEmbeddings
+from knowledge_gpt.core.debug import FakeVectorStore
+from knowledge_gpt.core.parsing import File
 
 
 class FolderIndex:
@@ -30,9 +34,7 @@ class FolderIndex:
         return all_texts
 
     @classmethod
-    def from_files(
-        cls, files: List[File], embeddings: Embeddings, vector_store: Type[VectorStore]
-    ) -> "FolderIndex":
+    def from_files(cls, files: List[File], embeddings: Embeddings, vector_store: Type[VectorStore]) -> "FolderIndex":
         """Creates an index from files."""
 
         all_docs = cls._combine_files(files)
@@ -45,9 +47,7 @@ class FolderIndex:
         return cls(files=files, index=index)
 
 
-def embed_files(
-    files: List[File], embedding: str, vector_store: str, **kwargs
-) -> FolderIndex:
+def embed_files(files: List[File], embedding: str, vector_store: str, **kwargs) -> FolderIndex:
     """Embeds a collection of files and stores them in a FolderIndex."""
 
     supported_embeddings: dict[str, Type[Embeddings]] = {
@@ -69,6 +69,4 @@ def embed_files(
     else:
         raise NotImplementedError(f"Vector store {vector_store} not supported.")
 
-    return FolderIndex.from_files(
-        files=files, embeddings=_embeddings, vector_store=_vector_store
-    )
+    return FolderIndex.from_files(files=files, embeddings=_embeddings, vector_store=_vector_store)

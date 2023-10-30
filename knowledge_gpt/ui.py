@@ -1,9 +1,11 @@
 from typing import List
+from typing import NoReturn
+
 import streamlit as st
 from langchain.docstore.document import Document
-from knowledge_gpt.core.parsing import File
 from streamlit.logger import get_logger
-from typing import NoReturn
+
+from knowledge_gpt.core.parsing import File
 
 logger = get_logger(__name__)
 
@@ -25,10 +27,7 @@ def is_query_valid(query: str) -> bool:
 
 
 def is_file_valid(file: File) -> bool:
-    if (
-        len(file.docs) == 0
-        or "".join([doc.page_content for doc in file.docs]).strip() == ""
-    ):
+    if len(file.docs) == 0 or "".join([doc.page_content for doc in file.docs]).strip() == "":
         st.error("Cannot read document! Make sure the document has selectable text")
         logger.error("Cannot read document")
         return False

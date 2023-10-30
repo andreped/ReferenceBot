@@ -1,10 +1,13 @@
-from langchain.vectorstores import VectorStore
-from typing import Iterable, List, Any
+from typing import Any
+from typing import Iterable
+from typing import List
+from typing import Optional
+
+from langchain.chat_models.fake import FakeListChatModel
 from langchain.docstore.document import Document
 from langchain.embeddings.base import Embeddings
 from langchain.embeddings.fake import FakeEmbeddings as FakeEmbeddingsBase
-from langchain.chat_models.fake import FakeListChatModel
-from typing import Optional
+from langchain.vectorstores import VectorStore
 
 
 class FakeChatModel(FakeListChatModel):
@@ -24,9 +27,7 @@ class FakeVectorStore(VectorStore):
     def __init__(self, texts: List[str]):
         self.texts: List[str] = texts
 
-    def add_texts(
-        self, texts: Iterable[str], metadatas: List[dict] | None = None, **kwargs: Any
-    ) -> List[str]:
+    def add_texts(self, texts: Iterable[str], metadatas: List[dict] | None = None, **kwargs: Any) -> List[str]:
         self.texts.extend(texts)
         return self.texts
 
@@ -40,10 +41,5 @@ class FakeVectorStore(VectorStore):
     ) -> "FakeVectorStore":
         return cls(texts=list(texts))
 
-    def similarity_search(
-        self, query: str, k: int = 4, **kwargs: Any
-    ) -> List[Document]:
-        return [
-            Document(page_content=text, metadata={"source": f"{i+1}-{1}"})
-            for i, text in enumerate(self.texts)
-        ]
+    def similarity_search(self, query: str, k: int = 4, **kwargs: Any) -> List[Document]:
+        return [Document(page_content=text, metadata={"source": f"{i+1}-{1}"}) for i, text in enumerate(self.texts)]

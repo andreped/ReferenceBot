@@ -1,14 +1,16 @@
-from io import BytesIO
-from typing import List, Any, Optional
 import re
+from abc import ABC
+from abc import abstractmethod
+from copy import deepcopy
+from hashlib import md5
+from io import BytesIO
+from typing import Any
+from typing import List
+from typing import Optional
 
 import docx2txt
-from langchain.docstore.document import Document
 import fitz
-from hashlib import md5
-
-from abc import abstractmethod, ABC
-from copy import deepcopy
+from langchain.docstore.document import Document
 
 
 class File(ABC):
@@ -32,10 +34,7 @@ class File(ABC):
         """Creates a File from a BytesIO object"""
 
     def __repr__(self) -> str:
-        return (
-            f"File(name={self.name}, id={self.id},"
-            " metadata={self.metadata}, docs={self.docs})"
-        )
+        return f"File(name={self.name}, id={self.id}," " metadata={self.metadata}, docs={self.docs})"
 
     def __str__(self) -> str:
         return f"File(name={self.name}, id={self.id}, metadata={self.metadata})"

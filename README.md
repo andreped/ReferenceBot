@@ -23,6 +23,7 @@ app_file: knowledge_gpt/main.py
 | - | - |
 | **HF Deploy** | [![Deploy](https://github.com/andreped/referencebot/workflows/Deploy/badge.svg)](https://github.com/andreped/referencebot/actions) |
 | **File size check** | [![Filesize](https://github.com/andreped/referencebot/workflows/Check%20file%20size/badge.svg)](https://github.com/andreped/referencebot/actions) |
+| **Formatting check** | [![Filesize](https://github.com/andreped/ReferenceBot/workflows/Linting/badge.svg)](https://github.com/andreped/ReferenceBot/actions) |
 
 ## [Installation](https://github.com/andreped/referencebot#installation)
 
