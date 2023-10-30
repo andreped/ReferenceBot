@@ -2,7 +2,6 @@ from typing import List
 import streamlit as st
 from langchain.docstore.document import Document
 from knowledge_gpt.core.parsing import File
-#import openai
 from streamlit.logger import get_logger
 from typing import NoReturn
 
@@ -40,26 +39,3 @@ def display_file_read_error(e: Exception, file_name: str) -> NoReturn:
     st.error("Error reading file. Make sure the file is not corrupted or encrypted")
     logger.error(f"{e.__class__.__name__}: {e}. Extension: {file_name.split('.')[-1]}")
     st.stop()
-
-
-@st.cache_data(show_spinner=False)
-def is_open_ai_key_valid(openai_api_key, model: str) -> bool:
-    if model == "debug":
-        return True
-
-    if not openai_api_key:
-        st.error("Please enter your OpenAI API key in the sidebar!")
-        return False
-    try:
-        pass
-        #openai.ChatCompletion.create(
-        #    engine="chatbot-streamlit",#model,
-        #    messages=[{"role": "user", "content": "test"}],
-        #    #api_key=openai_api_key,
-        #)
-    except Exception as e:
-        st.error(f"{e.__class__.__name__}: {e}")
-        logger.error(f"{e.__class__.__name__}: {e}")
-        return False
-
-    return True

@@ -2,6 +2,7 @@ import os
 os.environ["OPENAI_API_TYPE"] = "azure"  # configure API to Azure OpenAI
 
 import streamlit as st
+st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
 
 # add all secrets into environmental variables
 try:
@@ -33,10 +34,6 @@ from knowledge_gpt.core.qa import query_folder
 from langchain.chat_models import AzureChatOpenAI
 
 
-st.set_page_config(page_title="ReferenceBot", page_icon="📖", layout="wide")
-st.header("📖ReferenceBot")
-
-
 def main():
     EMBEDDING = "openai"
     VECTOR_STORE = "faiss"
@@ -44,6 +41,8 @@ def main():
 
     # Uncomment to enable debug mode
     # MODEL_LIST.insert(0, "debug")
+
+    st.header("📖ReferenceBot")
 
     # Enable caching for expensive functions
     bootstrap_caching()
